@@ -6,6 +6,24 @@ Flywheel Agent 是一套围绕真实行动、证据复盘和可复用经验设�
 
 ![概念总览：数据源状态经 Gate 和 Agent 进入私有收集与整理；主语变化须经用户确认。概念示意，不是运行界面截图。](docs/assets/overview.svg)
 
+## Quick Start
+
+已在 Python 3.12.10 上运行演示和测试；其他 Python 版本尚未验证。演示仅使用 Python 标准库，不需要安装依赖。
+
+在仓库根目录运行：
+
+~~~sh
+python examples/run_demo.py
+~~~
+
+命令会打印新建的临时输出目录，并演示 Gate 判断、合成 Markdown 收集、回读验证、推进 `last_read`、生成确定性整理结果、回读验证、推进 `last_organized`，以及再次 Gate 判断为无变化。演示输出不会写入或覆盖仓库文件及用户已有文件。
+
+运行演示测试：
+
+~~~sh
+python -m unittest discover -s tests
+~~~
+
 ## 快速阅读路径
 
 1. [项目概览](docs/OVERVIEW.md)：理解飞轮概念、运行循环与主语迁移。
@@ -30,6 +48,7 @@ python templates/gate_protocol.py --self-test
 - Qoder CN 和其他替代平台仍未验证，不能视为已支持。
 - 主语迁移只有在用户确认后才开始。若数据源为空但检查点非空，Gate 报错并要求人工检查，不自动唤醒 Agent 或重置水位。
 - 本仓库已公开，许可为 MIT License；这里的内容仍是设计草案，存储迁移尚未实现或验证。
+- Quick Start 是确定性合成示例，不调用 AI，不连接真实数据源，也不验证真实平台兼容性；它不能恢复用户的私人飞轮状态。
 
 ## 来源与隐私边界
 
