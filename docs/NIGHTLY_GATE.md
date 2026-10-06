@@ -6,9 +6,9 @@ This document describes a portable design pattern, not a deployment guide or a c
 
 1. Scheduler starts a bounded check at a user-selected time.
 2. Gate validates a source status summary and the private checkpoint state, then emits a machine-readable decision.
-3. Scheduler checks both the process exit code and the JSON status. A non-zero exit code or status=error is a failed Gate run and must be surfaced or retried according to policy.
-4. Scheduler must not treat a failed run as a normal skip by reading only wakeAgent. Error output has no wakeAgent field; malformed, unavailable, or inconsistent input must never be converted into a successful wakeAgent=false result.
-5. Agent runs only after a successful Gate result with wakeAgent=true; it follows a separate, reviewed task specification.
+3. A scheduler implementing this protocol checks both the process exit code and the JSON status. A non-zero exit code or status=error is a failed Gate run and must be surfaced or retried according to policy.
+4. A scheduler implementing this protocol must not treat a failed run as a normal skip by reading only wakeAgent. Error output has no wakeAgent field; malformed, unavailable, or inconsistent input must never be converted into a successful wakeAgent=false result.
+5. Under this protocol, the Agent runs only after a successful Gate result with wakeAgent=true; it follows a separate, reviewed task specification.
 6. Collection stage reads new source items and stores them in a private inbox, with attachments handled under the same privacy boundary.
 7. Organization stage creates summaries or observations only from collected evidence.
 
@@ -64,3 +64,13 @@ The example in templates/gate_protocol.py implements this input validation, deci
 - Use configurable paths and adapters; avoid machine-specific paths and account identifiers.
 - Validate duplicate handling, retries, timeouts, attachment behavior, and checkpoint recovery in the target environment.
 - No production Gate, local MCP service, data source, or model is invoked by the sample tests.
+
+## Relationship to the current Hermes scheduler
+
+The public Gate in this repository is an independent protocol example. It is not a copy of, or a production adapter for, the current Hermes Gate.
+
+A read-only inspection of local Hermes scheduler source found that, when a pre-run script exits non-zero, Hermes captures its error text and exit code, adds them to the Agent context as a **Script Error**, and instructs the Agent to report the script error. For the inspected task configuration, the scheduler then continues along the Agent execution path. This is a **disk-source observation**, not a verified live-run result.
+
+Passing an error context to the Agent does not mean the task is in a diagnosis-only mode. The inspected source provides no evidence that ordinary task operations are hard-blocked after this error.
+
+The Gateway's currently loaded code version has not been confirmed, and no real failure scenario was run. Actual runtime behavior therefore remains unverified. This observation does not change the independent protocol example or its input fields and decision logic above.
