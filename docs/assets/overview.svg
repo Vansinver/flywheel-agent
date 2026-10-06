@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 860" role="img" aria-labelledby="svg-title svg-desc">
+  <title id="svg-title">Flywheel Agent 可迁移设计概览</title>
+  <desc id="svg-desc">概念示意图。上半部分展示数据源状态经 Gate、Agent、私有收集与整理，在验证后分别推进双水位。下半部分展示当前周期复盘、新主语候选、资源交换评估、用户确认后开始新周期；用户未确认时保留候选。不是运行界面截图。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#475569"/>
+    </marker>
+    <style>
+      .title { font: 700 30px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 16px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #334155; }
+      .panel-title { font: 700 20px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #0f172a; }
+      .card-title { font: 700 16px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #0f172a; }
+      .card-sub { font: 400 13px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #334155; }
+      .small { font: 500 13px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #334155; }
+      .foot { font: 600 14px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #0f172a; }
+      .arrow { fill: none; stroke: #475569; stroke-width: 2.5; marker-end: url(#arrow); }
+      .card { stroke: #334155; stroke-width: 1.5; rx: 14; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="860" fill="#f1f5f9"/>
+  <text class="title" x="48" y="54">Flywheel Agent｜可迁移设计概览</text>
+  <text class="subtitle" x="50" y="84">通用规则、流程和验证边界的草案；不包含个人记录或运行数据</text>
+
+  <rect x="32" y="112" width="1136" height="316" rx="20" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text class="panel-title" x="56" y="150">一、从状态到有证据的记录</text>
+
+  <rect class="card" x="52" y="188" width="150" height="108" fill="#e0f2fe"/>
+  <text class="card-title" x="127" y="222" text-anchor="middle">数据源状态</text>
+  <text class="card-sub" x="127" y="247" text-anchor="middle">状态摘要</text>
+  <text class="card-sub" x="127" y="268" text-anchor="middle">不是消息内容</text>
+
+  <path class="arrow" d="M204 242 H227"/>
+  <rect class="card" x="232" y="188" width="150" height="108" fill="#ede9fe"/>
+  <text class="card-title" x="307" y="222" text-anchor="middle">Gate</text>
+  <text class="card-sub" x="307" y="247" text-anchor="middle">校验与决策</text>
+  <text class="card-sub" x="307" y="268" text-anchor="middle">只读水位</text>
+
+  <path class="arrow" d="M384 242 H407"/>
+  <rect class="card" x="412" y="188" width="150" height="108" fill="#dbeafe"/>
+  <text class="card-title" x="487" y="222" text-anchor="middle">Agent</text>
+  <text class="card-sub" x="487" y="247" text-anchor="middle">仅按任务说明</text>
+  <text class="card-sub" x="487" y="268" text-anchor="middle">处理需要的工作</text>
+
+  <path class="arrow" d="M564 242 H587"/>
+  <rect class="card" x="592" y="188" width="150" height="108" fill="#dcfce7"/>
+  <text class="card-title" x="667" y="222" text-anchor="middle">私有收集</text>
+  <text class="card-sub" x="667" y="247" text-anchor="middle">写入并回读校验</text>
+  <text class="card-sub" x="667" y="268" text-anchor="middle">通过后推进收集水位</text>
+
+  <path class="arrow" d="M744 242 H767"/>
+  <rect class="card" x="772" y="188" width="150" height="108" fill="#fef3c7"/>
+  <text class="card-title" x="847" y="222" text-anchor="middle">整理与归档</text>
+  <text class="card-sub" x="847" y="247" text-anchor="middle">基于已收集证据</text>
+  <text class="card-sub" x="847" y="268" text-anchor="middle">写入并回读校验</text>
+
+  <path class="arrow" d="M924 242 H947"/>
+  <rect class="card" x="952" y="188" width="188" height="108" fill="#fee2e2"/>
+  <text class="card-title" x="1046" y="218" text-anchor="middle">验证后推进双水位</text>
+  <text class="card-sub" x="1046" y="244" text-anchor="middle">last_read</text>
+  <text class="card-sub" x="1046" y="267" text-anchor="middle">last_organized</text>
+
+  <rect x="52" y="323" width="1090" height="72" rx="12" fill="#fff7ed" stroke="#c2410c" stroke-width="1.5"/>
+  <text class="small" x="72" y="352">错误或状态不一致：Gate 返回错误，不唤醒 Agent，也不推进或重置水位。</text>
+  <text class="small" x="72" y="377">空源且检查点非空时，需人工检查并作出受控基线决定；Gate 示例不连接任何数据源。</text>
+
+  <rect x="32" y="450" width="1136" height="326" rx="20" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text class="panel-title" x="56" y="489">二、用户确认后再迁移主语</text>
+
+  <rect class="card" x="52" y="530" width="180" height="110" fill="#e0f2fe"/>
+  <text class="card-title" x="142" y="565" text-anchor="middle">当前周期复盘</text>
+  <text class="card-sub" x="142" y="591" text-anchor="middle">行动、证据与缺口</text>
+
+  <path class="arrow" d="M234 585 H264"/>
+  <rect class="card" x="269" y="530" width="180" height="110" fill="#ede9fe"/>
+  <text class="card-title" x="359" y="565" text-anchor="middle">新主语候选</text>
+  <text class="card-sub" x="359" y="591" text-anchor="middle">先作为假设保留</text>
+
+  <path class="arrow" d="M451 585 H481"/>
+  <rect class="card" x="486" y="530" width="180" height="110" fill="#fef3c7"/>
+  <text class="card-title" x="576" y="565" text-anchor="middle">评估资源交换</text>
+  <text class="card-sub" x="576" y="591" text-anchor="middle">需求、资源、验证行动</text>
+
+  <path class="arrow" d="M668 585 H698"/>
+  <rect class="card" x="703" y="530" width="180" height="110" fill="#dbeafe"/>
+  <text class="card-title" x="793" y="574" text-anchor="middle">用户确认？</text>
+  <text class="card-sub" x="793" y="601" text-anchor="middle">由用户决定是否切换</text>
+
+  <path class="arrow" d="M885 585 H915"/>
+  <rect class="card" x="920" y="530" width="220" height="110" fill="#dcfce7"/>
+  <text class="card-title" x="1030" y="565" text-anchor="middle">开始新周期</text>
+  <text class="card-sub" x="1030" y="591" text-anchor="middle">保留旧周期记录</text>
+
+  <path d="M793 642 V690 H570" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="306" y="686" width="260" height="54" rx="12" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text class="small" x="436" y="719" text-anchor="middle">暂不确认：保留候选，继续收集证据</text>
+
+  <line x1="48" y1="809" x2="1152" y2="809" stroke="#94a3b8" stroke-width="1"/>
+  <text class="foot" x="600" y="839" text-anchor="middle">概念示意，不是运行界面截图</text>
+</svg>
